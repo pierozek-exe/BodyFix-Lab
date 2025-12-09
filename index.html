@@ -7,6 +7,8 @@
     <meta name="description" content="BodyFix Lab – medyczna fizjoterapia online dla całego ciała. Analiza postawy ze zdjęcia, indywidualny plan, pełna opieka fizjoterapeuty. Taniej niż klasyczna wizyta.">
     <link rel="stylesheet" href="johnny2.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS (client-side mail sending) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -389,7 +391,7 @@
                 </p>
             </div>
             <div class="contact__form">
-                <form>
+                <form id="contact-form">
                     <label for="name">Imię</label>
                     <input type="text" id="name" name="name" placeholder="Twoje imię">
 
@@ -404,7 +406,7 @@
 
                     <button type="submit" class="btn btn--primary btn--full">Wyślij do darmowej analizy</button>
                     <p class="contact__note">
-                        Formularz jest przykładowy – podepnij go do swojego systemu mailowego lub CRM według potrzeb.
+                        Formularz wyśle wiadomość e-mail na adres <strong>johnn.gleba@gmail.com</strong> (konieczna konfiguracja EmailJS - instrukcja poniżej).
                     </p>
                 </form>
             </div>
@@ -425,20 +427,80 @@
     // aktualny rok w stopce
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Obsługa nawigacji - highlight aktywnego linku
+    // --- EmailJS form handling ---
+    // Uwaga: przed użyciem zamień 'YOUR_PUBLIC_KEY', 'YOUR_SERVICE_ID' i 'YOUR_TEMPLATE_ID'
+    // na wartości z panelu EmailJS (https://www.emailjs.com). Zaloguj się tam, dodaj service (np. Gmail)
+    // i utwórz template, w którym możesz użyć zmiennych: from_name, from_email, problem_description, file_base64.
+    // W template ustaw odbiorcę na: johnn.gleba@gmail.com (albo użyj zmiennej to_email jeśli template ją wspiera).
+    (function() {
+        // init EmailJS (replace placeholder)
+        if (window.emailjs) {
+            emailjs.init('YOUR_PUBLIC_KEY');
+        }
+
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm && window.emailjs) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const problem = document.getElementById('problem').value.trim();
+                const fileInput = document.getElementById('file');
+
+                if (!name || !email || !problem) {
+                    alert('Proszę wypełnić wszystkie wymagane pola (Imię, E-mail, Opis).');
+                    return;
+                }
+
+                // Przygotuj dane do szablonu
+                let fileBase64 = '';
+                if (fileInput && fileInput.files.length > 0) {
+                    try {
+                        fileBase64 = await new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = reject;
+                            reader.readAsDataURL(fileInput.files[0]);
+                        });
+                    } catch (err) {
+                        console.error('Błąd czytania pliku:', err);
+                    }
+                }
+
+                // templateParams - do Twojego szablonu EmailJS
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    problem_description: problem,
+                    file_base64: fileBase64,
+                    // wymuszenie odbiorcy (jeśli Twój template używa tej zmiennej)
+                    to_email: 'johnn.gleba@gmail.com'
+                };
+
+                try {
+                    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                    alert('✅ Formularz wysłany. Dziękuję — wiadomość zostanie przesłana na johnn.gleba@gmail.com.');
+                    contactForm.reset();
+                } catch (error) {
+                    console.error('EmailJS error:', error);
+                    alert('Wystąpił błąd przy wysyłaniu formularza. Sprawdź konfigurację EmailJS lub wyślij wiadomość bezpośrednio na johnn.gleba@gmail.com');
+                }
+            });
+        }
+    })();
+
+    // --- Navigation active link highlighting ---
     const navLinks = document.querySelectorAll('.nav a');
-    
     function updateActiveLink() {
         const sections = document.querySelectorAll('[id]');
         let current = '';
-        
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             if (window.scrollY >= sectionTop - 150) {
                 current = section.getAttribute('id');
             }
         });
-
         navLinks.forEach(link => {
             link.style.borderBottomColor = 'transparent';
             link.style.color = 'var(--muted)';
@@ -448,15 +510,7 @@
             }
         });
     }
-
-    // Obsługa klikania linków
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            updateActiveLink();
-        });
-    });
-
-    // Obsługa scrollowania
+    navLinks.forEach(link => link.addEventListener('click', () => updateActiveLink()));
     window.addEventListener('scroll', updateActiveLink);
     window.addEventListener('load', updateActiveLink);
 </script>
