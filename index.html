@@ -7,8 +7,7 @@
     <meta name="description" content="BodyFix Lab – medyczna fizjoterapia online dla całego ciała. Analiza postawy ze zdjęcia, indywidualny plan, pełna opieka fizjoterapeuty. Taniej niż klasyczna wizyta.">
     <link rel="stylesheet" href="johnny2.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- EmailJS (client-side mail sending) -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -30,7 +29,6 @@
 </header>
 
 <main>
-    <!-- HERO -->
     <section id="hero" class="hero">
         <div class="container hero__grid">
             <div class="hero__content">
@@ -69,7 +67,6 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
     <section id="how" class="section section--alt">
         <div class="container">
             <h2>Jak działa BodyFix Lab?</h2>
@@ -121,7 +118,6 @@
         </div>
     </section>
 
-    <!-- CONDITIONS / ZAKRES -->
     <section id="conditions" class="section">
         <div class="container">
             <h2>W czym konkretnie pomagamy?</h2>
@@ -201,7 +197,6 @@
         </div>
     </section>
 
-    <!-- PRICING -->
     <section id="pricing" class="section section--alt">
         <div class="container">
             <h2>Cennik BodyFix Lab</h2>
@@ -289,7 +284,6 @@
         </div>
     </section>
 
-    <!-- VALUE / AD COPY -->
     <section id="value" class="section section--emphasis">
         <div class="container value__inner">
             <div class="value__text">
@@ -327,7 +321,6 @@
         </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" class="section">
         <div class="container">
             <h2>Najczęściej zadawane pytania</h2>
@@ -368,7 +361,6 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="section section--alt">
         <div class="container contact">
             <div class="contact__text">
@@ -393,20 +385,20 @@
             <div class="contact__form">
                 <form id="contact-form">
                     <label for="name">Imię</label>
-                    <input type="text" id="name" name="name" placeholder="Twoje imię">
+                    <input type="text" id="name" name="name" placeholder="Twoje imię" required>
 
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="twój@email.pl">
+                    <input type="email" id="email" name="email" placeholder="twój@email.pl" required>
 
                     <label for="problem">Co Cię boli / co chcesz poprawić?</label>
-                    <textarea id="problem" name="problem" rows="4" placeholder="Opisz krótko swój problem, np. &quot;ból lędźwi przy długim siedzeniu&quot;"></textarea>
+                    <textarea id="problem" name="problem" rows="4" placeholder="Opisz krótko swój problem, np. &quot;ból lędźwi przy długim siedzeniu&quot;" required></textarea>
 
                     <label for="file">Dodaj zdjęcie sylwetki z boku</label>
                     <input type="file" id="file" name="file">
 
-                    <button type="submit" class="btn btn--primary btn--full">Wyślij do darmowej analizy</button>
+                    <button type="submit" class="btn btn--primary btn--full" id="submit_btn">Wyślij do darmowej analizy</button>
                     <p class="contact__note">
-                        Formularz wyśle wiadomość e-mail na adres <strong>johnn.gleba@gmail.com</strong> (konieczna konfiguracja EmailJS - instrukcja poniżej).
+                        Formularz wyśle wiadomość e-mail na adres johnn.gleba@gmail.com.
                     </p>
                 </form>
             </div>
@@ -427,21 +419,21 @@
     // aktualny rok w stopce
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- EmailJS form handling ---
-    // Uwaga: przed użyciem zamień 'YOUR_PUBLIC_KEY', 'YOUR_SERVICE_ID' i 'YOUR_TEMPLATE_ID'
-    // na wartości z panelu EmailJS (https://www.emailjs.com). Zaloguj się tam, dodaj service (np. Gmail)
-    // i utwórz template, w którym możesz użyć zmiennych: from_name, from_email, problem_description, file_base64.
-    // W template ustaw odbiorcę na: johnn.gleba@gmail.com (albo użyj zmiennej to_email jeśli template ją wspiera).
+    // --- Skrypt uruchamiający EmailJS ---
     (function() {
-        // init EmailJS (replace placeholder)
-        if (window.emailjs) {
-            emailjs.init('YOUR_PUBLIC_KEY');
-        }
-
+        // TU WSTAWIŁEM TWÓJ PUBLIC KEY
+        emailjs.init('2QT5_OwVqPeR0sDLE');
+        
         const contactForm = document.getElementById('contact-form');
-        if (contactForm && window.emailjs) {
+        const submitBtn = document.getElementById('submit_btn');
+
+        if (contactForm) {
             contactForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
+
+                // Blokujemy przycisk
+                submitBtn.innerText = 'Wysyłanie...';
+                submitBtn.disabled = true;
 
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -450,12 +442,17 @@
 
                 if (!name || !email || !problem) {
                     alert('Proszę wypełnić wszystkie wymagane pola (Imię, E-mail, Opis).');
+                    submitBtn.innerText = 'Wyślij do darmowej analizy';
+                    submitBtn.disabled = false;
                     return;
                 }
 
-                // Przygotuj dane do szablonu
-                let fileBase64 = '';
+                // Przygotuj plik i nazwę
+                let fileBase64 = null;
+                let fileName = "Brak pliku";
+
                 if (fileInput && fileInput.files.length > 0) {
+                    fileName = fileInput.files[0].name;
                     try {
                         fileBase64 = await new Promise((resolve, reject) => {
                             const reader = new FileReader();
@@ -468,29 +465,33 @@
                     }
                 }
 
-                // templateParams - do Twojego szablonu EmailJS
+                // Parametry do szablonu (UZUPEŁNIONE)
                 const templateParams = {
                     from_name: name,
                     from_email: email,
                     problem_description: problem,
+                    file_name: fileName,   // <--- Dodane, żeby działało {{file_name}}
                     file_base64: fileBase64,
-                    // wymuszenie odbiorcy (jeśli Twój template używa tej zmiennej)
                     to_email: 'johnn.gleba@gmail.com'
                 };
 
+                // Wysyłanie (UZUPEŁNIONE SERVICE ID i TEMPLATE ID)
                 try {
-                    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                    await emailjs.send('service_wmwcczo', 'template_littr5q', templateParams);
                     alert('✅ Formularz wysłany. Dziękuję — wiadomość zostanie przesłana na johnn.gleba@gmail.com.');
                     contactForm.reset();
                 } catch (error) {
                     console.error('EmailJS error:', error);
-                    alert('Wystąpił błąd przy wysyłaniu formularza. Sprawdź konfigurację EmailJS lub wyślij wiadomość bezpośrednio na johnn.gleba@gmail.com');
+                    alert('Wystąpił błąd przy wysyłaniu formularza. Sprawdź konsolę (F12) jeśli problem się powtarza.');
+                } finally {
+                    submitBtn.innerText = 'Wyślij do darmowej analizy';
+                    submitBtn.disabled = false;
                 }
             });
         }
     })();
 
-    // --- Navigation active link highlighting ---
+    // --- Nawigacja (podświetlanie) ---
     const navLinks = document.querySelectorAll('.nav a');
     function updateActiveLink() {
         const sections = document.querySelectorAll('[id]');
