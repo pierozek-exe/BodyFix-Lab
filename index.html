@@ -2,12 +2,635 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>BodyFix Lab – nowoczesna fizjoterapia online</title>
+    <title>BodyFix Lab – materiały edukacyjne o zdrowiu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BodyFix Lab – medyczna fizjoterapia online dla całego ciała. Analiza postawy ze zdjęcia, indywidualny plan, pełna opieka fizjoterapeuty. Taniej niż klasyczna wizyta.">
-    <link rel="stylesheet" href="johnny2.css">
+    <meta name="description" content="BodyFix Lab – naukowe materiały edukacyjne o zdrowiu kręgosłupa, energii i regulacji układu nerwowego. Ebooki i filmiki instruktażowe oparte na najnowszej wiedzy.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+:root {
+    --bg: #f8f9fa;
+    --bg-alt: #f0f2f5;
+    --bg-soft: #e8ecf1;
+    --primary: #1db88f;
+    --primary-soft: rgba(29, 184, 143, 0.12);
+    --accent: #0d9d6b;
+    --text: #1a1f36;
+    --muted: #6b7280;
+    --danger: #ff6b81;
+    --card-bg: #ffffff;
+    --border: #e5e7eb;
+    --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(18px);
+    background: linear-gradient(to bottom, rgba(248, 249, 250, 0.98), rgba(240, 242, 245, 0.95));
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.logo__mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    background: radial-gradient(circle at 20% 20%, #1db88f, #0d9d6b 45%, #006b52 100%);
+    box-shadow: 0 0 25px rgba(29, 184, 143, 0.4);
+}
+
+.logo__text {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+}
+
+.logo__text span {
+    color: var(--primary);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.nav a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s ease, transform 0.18s ease, border-bottom 0.18s ease;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+    color: var(--primary);
+    transform: translateY(-1px);
+    border-bottom-color: var(--primary);
+}
+
+.nav__cta {
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid rgba(29, 184, 143, 0.6);
+    color: var(--primary);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.75rem 1.35rem;
+    border-radius: 999px;
+    border: none;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    white-space: nowrap;
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    box-shadow: 0 14px 40px rgba(29, 184, 143, 0.25);
+}
+
+.btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 50px rgba(29, 184, 143, 0.35);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid rgba(29, 184, 143, 0.5);
+}
+
+.btn--ghost:hover {
+    background: var(--primary-soft);
+}
+
+.btn--full {
+    width: 100%;
+    justify-content: center;
+}
+
+.hero {
+    padding: 4.5rem 0 3.5rem;
+}
+
+.hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero__content h1 {
+    font-size: clamp(2.1rem, 3vw, 2.8rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.hero__lead {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.hero__bullets {
+    list-style: none;
+    margin-bottom: 2rem;
+    color: var(--muted);
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero__bullets li {
+    margin-bottom: 0.5rem;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.section {
+    padding: 3.5rem 0;
+}
+
+.section--alt {
+    background: linear-gradient(135deg, #f5f7fa 0%, #eff1f5 100%);
+}
+
+.section--emphasis {
+    padding: 3.5rem 0;
+    background: linear-gradient(135deg, #e8ecf1, #dfe4ec);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.section__lead {
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0.5rem auto 2rem;
+    text-align: center;
+}
+
+.ebooks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.ebook-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.2rem;
+    padding: 1.8rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ebook-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
+}
+
+.ebook-card__badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.ebook-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+}
+
+.ebook-card__subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.ebook-card__description {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.ebook-card__features {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.ebook-card__features li {
+    padding-left: 1.2rem;
+    position: relative;
+    margin-bottom: 0.4rem;
+}
+
+.ebook-card__features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.ebook-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.ebook-card__price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.ebook-card__price span {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.ebook-card--placeholder {
+    background: rgba(248, 249, 250, 0.6);
+    border: 2px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+}
+
+.ebook-card--placeholder h3 {
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.ebook-card--placeholder p {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
+}
+
+.video-card__placeholder {
+    background: linear-gradient(135deg, #e8ecf1, #dfe4ec);
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 3rem;
+}
+
+.video-card__content {
+    padding: 1.3rem;
+}
+
+.video-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+
+.video-card__description {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.video-card__meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.video-card--placeholder {
+    background: rgba(248, 249, 250, 0.6);
+    border: 2px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    text-align: center;
+    padding: 2rem;
+}
+
+.video-card--placeholder h3 {
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.banner {
+    margin-top: 2rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(29, 184, 143, 0.3);
+    background: rgba(29, 184, 143, 0.06);
+    font-size: 0.95rem;
+    color: var(--text);
+    text-align: center;
+}
+
+.banner strong {
+    color: var(--primary);
+}
+
+.approach {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.approach h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.approach__intro {
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+}
+
+.approach__content {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 1.2rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+}
+
+.approach__content p {
+    margin-bottom: 1rem;
+    color: var(--muted);
+}
+
+.approach__list {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.approach__list li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.8rem;
+    color: var(--muted);
+}
+
+.approach__list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.quote {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(29, 184, 143, 0.06);
+    border-left: 3px solid var(--primary);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: var(--text);
+    font-style: italic;
+}
+
+.faq {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.faq__item {
+    background: rgba(248, 249, 250, 0.85);
+    border-radius: 0.9rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.faq__item h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+}
+
+.faq__item p {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.contact__text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.contact__form {
+    background: rgba(248, 249, 250, 0.9);
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-soft);
+}
+
+.contact__form form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.contact__form label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.contact__form input,
+.contact__form textarea {
+    background: #ffffff;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 0.65rem 0.75rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.contact__form input::placeholder,
+.contact__form textarea::placeholder {
+    color: #a0a8b8;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+    outline: none;
+    border-color: rgba(29, 184, 143, 0.6);
+    background: #ffffff;
+}
+
+.contact__note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    text-align: center;
+}
+
+.footer {
+    padding: 1.5rem 0 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(248, 249, 250, 0.8);
+}
+
+.footer__inner {
+    text-align: center;
+}
+
+.footer p {
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.footer__small {
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 880px) {
+    .nav {
+        display: none;
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+    }
+
+    .ebooks-grid,
+    .videos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 3rem 0;
+    }
+
+    .hero {
+        padding-top: 3.5rem;
+    }
+}
+    </style>
 </head>
 <body>
 <header class="header">
@@ -18,10 +641,9 @@
         </div>
         <nav class="nav">
             <a href="#hero">Start</a>
-            <a href="#how">Jak to działa</a>
-            <a href="#conditions">Zakres</a>
-            <a href="#pricing">Cennik</a>
-            <a href="#value">Dlaczego taniej</a>
+            <a href="#ebooks">Ebooki</a>
+            <a href="#videos">Filmiki</a>
+            <a href="#approach">Podejście</a>
             <a href="#faq">FAQ</a>
             <a href="#contact" class="nav__cta">Kontakt</a>
         </nav>
@@ -32,443 +654,172 @@
     <section id="hero" class="hero">
         <div class="container hero__grid">
             <div class="hero__content">
-                <h1>BodyFix Lab – nowoczesna fizjoterapia online dla całego ciała</h1>
+                <h1>Zrozumieć ciało. Odzyskać kontrolę.</h1>
                 <p class="hero__lead">
-                    Od bólu karku, przez kręgosłup i barki, aż po biodra, kolana i stopy. 
-                    Medyczna analiza postawy i ruchu, indywidualny plan terapii – bez wychodzenia z domu.
+                    Materiały edukacyjne oparte na neurofizjologii, biomechanice i nauce o bólu. 
+                    Bez szablonów, bez pseudonauki, bez obietnic cudu.
                 </p>
                 <ul class="hero__bullets">
-                    <li>🧬 Medyczne, nowoczesne podejście oparte na nauce</li>
-                    <li>💻 Konsultacje 100% online dla całego ciała</li>
-                    <li>🦴 Od ostrego bólu po profilaktykę i powrót do sportu</li>
+                    <li>🧬 Podejście oparte na najnowszej wiedzy naukowej</li>
+                    <li>📚 Ebooki wyjaśniające mechanizmy, nie tylko objawy</li>
+                    <li>🎥 Filmiki instruktażowe krok po kroku</li>
+                    <li>💡 Zrozumienie zamiast bezrefleksyjnego wykonywania</li>
                 </ul>
                 <div class="hero__actions">
-                    <a href="#contact" class="btn btn--primary">Wyślij zdjęcie do darmowej analizy</a>
-                    <a href="#how" class="btn btn--ghost">Zobacz jak to działa</a>
+                    <a href="#ebooks" class="btn btn--primary">Zobacz materiały</a>
+                    <a href="#approach" class="btn btn--ghost">Nasze podejście</a>
                 </div>
-                <p class="hero__note">
-                    ➤ Wystarczy zwykłe <strong>zdjęcie sylwetki z boku</strong> wykonane telefonem. 
-                    Bez specjalnej aplikacji, logowania i kombinowania.
-                </p>
-            </div>
-            <div class="hero__card">
-                <h2>BodyScan Lite – 25 zł</h2>
-                <p>Wyślij zdjęcie z boku – otrzymasz darmową, wstępną analizę postawy oraz jedno ćwiczenie startowe.</p>
-                <ul class="card-list">
-                    <li>1–2 kluczowe obserwacje dot. postawy</li>
-                    <li>hipoteza mechanizmu bólu/przeciążenia</li>
-                    <li>jedno konkretne ćwiczenie na start</li>
-                </ul>
-                <a href="#contact" class="btn btn--primary btn--full">Chcę darmowy BodyScan Lite</a>
-                <p class="hero__small">
-                    Bez zobowiązań. Ty decydujesz, czy chcesz przejść do pełnego planu terapii.
-                </p>
             </div>
         </div>
     </section>
 
-    <section id="how" class="section section--alt">
+    <section id="ebooks" class="section section--alt">
         <div class="container">
-            <h2>Jak działa BodyFix Lab?</h2>
+            <h2>Ebooki edukacyjne</h2>
             <p class="section__lead">
-                Cały proces zaprojektowany jest tak, aby był medyczny, logiczny i prosty dla Ciebie.
-                Bez aplikacji, bez dojazdów, bez tracenia czasu w poczekalni.
+                Każdy ebook to przemyślany esej edukacyjny, który zmienia sposób myślenia o zdrowiu. 
+                Nie znajdziesz tu gotowych ćwiczeń "na wszystko" – znajdziesz zrozumienie własnego ciała.
             </p>
-            <div class="steps">
-                <div class="step">
-                    <span class="step__badge">1</span>
-                    <h3>Zrób zwykłe zdjęcie z boku</h3>
-                    <p>
-                        Stań bokiem do aparatu w naturalnej pozycji. Zrób zdjęcie telefonem. 
-                        Opcjonalnie możesz dodać zdjęcie od przodu lub tyłu – im więcej danych, tym lepiej.
+
+            <div class="ebooks-grid">
+                <!-- Ebook 1: Lędźwie -->
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Nowy materiał</span>
+                    <h3>Wzmocnienie dolnych pleców przez regulację, nie przez wysiłek</h3>
+                    <p class="ebook-card__subtitle">
+                        "Czasem lędźwie krzyczą z bólu nie przez słabe mięśnie, ale przez chaos w regulacji"
                     </p>
-                </div>
-                <div class="step">
-                    <span class="step__badge">2</span>
-                    <h3>Wyślij je do BodyFix Lab</h3>
-                    <p>
-                        Wyślij zdjęcie przez mail, formularz lub komunikator, który już masz. 
-                        <strong>Nie musisz instalować żadnej aplikacji.</strong>
+                    <p class="ebook-card__description">
+                        Ten materiał wyjaśnia, dlaczego większość problemów z dolnym odcinkiem kręgosłupa nie wynika ze słabości, 
+                        lecz z utraty zdolności regulacji napięcia. Bez kolejnego programu ćwiczeń – za to z nowym sposobem myślenia.
                     </p>
-                </div>
-                <div class="step">
-                    <span class="step__badge">3</span>
-                    <h3>Otrzymujesz darmowy BodyScan Lite</h3>
-                    <p>
-                        Wstępna analiza postawy, najważniejsze obserwacje i jedno ćwiczenie dopasowane do Twojego problemu – wszystko w czytelnej formie.
+                    <ul class="ebook-card__features">
+                        <li>Jak naprawdę pracują mięśnie stabilizujące</li>
+                        <li>Dlaczego bezruch bywa gorszy niż "zła pozycja"</li>
+                        <li>Jak codzienne czynności mogą być bodźcem wzmacniającym</li>
+                        <li>Czym jest regulacja napięcia i dlaczego jest kluczowa</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
+                </article>
+
+                <!-- Ebook 2: Zmęczenie -->
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Nowy materiał</span>
+                    <h3>Odzyskać energię przez zrozumienie zmęczenia regulacyjnego</h3>
+                    <p class="ebook-card__subtitle">
+                        "Zmęczenie rzadko wynika z braku snu. Częściej wynika z tego, że organizm nie wychodzi z trybu czuwania"
                     </p>
-                </div>
-                <div class="step">
-                    <span class="step__badge">4</span>
-                    <h3>Wybierasz plan terapii</h3>
-                    <p>
-                        Jeśli chcesz i widzisz sens, wybierasz pakiet (7, 14 lub 30 dni). 
-                        Otrzymujesz indywidualny plan, kontrolę wykonywania ćwiczeń i pełną opiekę fizjoterapeuty.
+                    <p class="ebook-card__description">
+                        Materiał pokazuje, jak odzyskać energię bez suplementów i motywowania się – 
+                        poprzez zrozumienie, jak układ nerwowy zarządza zasobami w ciągu dnia.
                     </p>
-                </div>
+                    <ul class="ebook-card__features">
+                        <li>Czym jest zmęczenie regulacyjne</li>
+                        <li>Jak układ nerwowy zużywa energię na czuwanie</li>
+                        <li>Dlaczego ciągła uwaga jest droższa niż ruch</li>
+                        <li>Jak obniżyć koszt funkcjonowania bez zmiany życia</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
+                </article>
+
+                <!-- Placeholder dla kolejnych ebooków -->
+                <article class="ebook-card ebook-card--placeholder">
+                    <h3>Miejsce na kolejny ebook</h3>
+                    <p>Wkrótce dostępne nowe materiały edukacyjne</p>
+                </article>
             </div>
 
             <div class="banner">
-                <p>
-                    🔍 <strong>Medycznie, a nie „na czuja”.</strong> 
-                    W BodyFix Lab analiza postawy i ruchu poprzedza każde ćwiczenie. 
-                    Nie dostajesz losowego zestawu z internetu, tylko plan oparty na Twoim ciele.
-                </p>
+                🔬 <strong>To nie są poradniki motywacyjne.</strong> 
+                To materiały edukacyjne oparte na neurofizjologii, które zmieniają sposób myślenia o zdrowiu.
             </div>
         </div>
     </section>
 
-    <section id="conditions" class="section">
+    <section id="videos" class="section">
         <div class="container">
-            <h2>W czym konkretnie pomagamy?</h2>
+            <h2>Filmiki instruktażowe</h2>
             <p class="section__lead">
-                BodyFix Lab pracuje z całym ciałem – od dolegliwości związanych z siedzącym trybem życia, 
-                przez przeciążenia sportowe, po przewlekłe bóle funkcjonalne.
+                Krótkie, konkretne filmiki pokazujące techniki, ćwiczenia i praktyczne zastosowanie wiedzy z ebooków.
             </p>
 
-            <div class="conditions-grid">
-                <article class="condition">
-                    <h3>Głowa i szyja</h3>
-                    <ul>
-                        <li>przewlekłe napięcia karku</li>
-                        <li>bóle głowy o podłożu mięśniowo–powięziowym</li>
-                        <li>„garbik” i wysunięta głowa do przodu</li>
-                        <li>dolegliwości po długiej pracy przy komputerze</li>
-                    </ul>
+            <div class="videos-grid">
+                <!-- Placeholder 1 -->
+                <article class="video-card video-card--placeholder">
+                    <h3>Miejsce na filmik</h3>
+                    <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
-                <article class="condition">
-                    <h3>Barki i obręcz barkowa</h3>
-                    <ul>
-                        <li>ból przy sięganiu i unoszeniu ręki</li>
-                        <li>ograniczenie zakresu ruchu barku</li>
-                        <li>zespoły przeciążeniowe u osób trenujących</li>
-                        <li>„zawinięte” barki, zapadnięta klatka piersiowa</li>
-                    </ul>
+
+                <!-- Placeholder 2 -->
+                <article class="video-card video-card--placeholder">
+                    <h3>Miejsce na filmik</h3>
+                    <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
-                <article class="condition">
-                    <h3>Kręgosłup piersiowy i lędźwiowy</h3>
-                    <ul>
-                        <li>ból w odcinku lędźwiowym przy siedzeniu lub pochylaniu</li>
-                        <li>sztywność pleców, „ciągnięcie” między łopatkami</li>
-                        <li>dolegliwości przypominające rwę (bez objawów alarmowych)</li>
-                        <li>bóle przeciążeniowe u osób aktywnych</li>
-                    </ul>
+
+                <!-- Placeholder 3 -->
+                <article class="video-card video-card--placeholder">
+                    <h3>Miejsce na filmik</h3>
+                    <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
-                <article class="condition">
-                    <h3>Biodra i miednica</h3>
-                    <ul>
-                        <li>ból biodra przy chodzeniu lub bieganiu</li>
-                        <li>uczucie „zablokowania” w biodrze</li>
-                        <li>przodopochylenie miednicy, nadmierna lordoza</li>
-                        <li>dysbalans mięśniowy pośladków i zginaczy bioder</li>
-                    </ul>
-                </article>
-                <article class="condition">
-                    <h3>Kolana</h3>
-                    <ul>
-                        <li>ból przy schodzeniu ze schodów lub przysiadach</li>
-                        <li>„strzelające” kolana bez urazu ostrego</li>
-                        <li>przeciążenia biegowe, zespół pasma biodrowo–piszczelowego</li>
-                        <li>nieprawidłowe ustawienie kolan (np. zbiegające się do środka)</li>
-                    </ul>
-                </article>
-                <article class="condition">
-                    <h3>Stawy skokowe i stopy</h3>
-                    <ul>
-                        <li>ból po skręceniach stawu skokowego</li>
-                        <li>niestałość, „uciekanie” kostki</li>
-                        <li>przeciążenia śródstopia i pięt</li>
-                        <li>płaskostopie funkcjonalne, problem z wybiciem przy chodzie</li>
-                    </ul>
-                </article>
-                <article class="condition condition--wide">
-                    <h3>Przeciążenia sportowe i po urazach</h3>
-                    <ul>
-                        <li>powrót do biegania, piłki nożnej, treningu siłowego</li>
-                        <li>programowanie obciążeń i stopniowy powrót do aktywności</li>
-                        <li>stabilizacja, mobilność, prewencja nawrotów</li>
-                    </ul>
-                    <p class="condition__note">
-                        Jeśli masz świeży uraz, objawy alarmowe (np. nagły niedowład, zaburzenia czucia, gorączka) – 
-                        <strong>najpierw skontaktuj się z lekarzem</strong>. W razie wątpliwości powiem Ci uczciwie, czy praca online jest bezpieczna.
-                    </p>
-                </article>
+            </div>
+
+            <div class="banner">
+                💡 <strong>Wskazówka:</strong> Aby dodać filmik z YouTube, zamień placeholder na: 
+                <code>&lt;iframe src="https://www.youtube.com/embed/KOD_FILMU"&gt;&lt;/iframe&gt;</code>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="section section--alt">
-        <div class="container">
-            <h2>Cennik BodyFix Lab</h2>
-            <p class="section__lead">
-                Płacisz nie za 40 minut na kozetce, ale za <strong>proces</strong> – 
-                analizę, plan, korekty i realny efekt. Wystarczy zwykłe zdjęcie, żeby zacząć.
+    <section id="approach" class="section section--emphasis">
+        <div class="container approach">
+            <h2>Nasze podejście</h2>
+            <p class="approach__intro">
+                BodyFix Lab nie obiecuje szybkich rozwiązań. Zamiast tego oferuje coś cenniejszego: zrozumienie.
             </p>
-
-            <div class="pricing-grid">
-                <article class="pricing-card pricing-card--free">
-                    <h3>BodyScan Lite</h3>
-                    <p class="pricing-card__price">25 zł</p>
-                    <p class="pricing-card__tag">Darmowy start</p>
-                    <ul>
-                        <li>wstępna analiza postawy na podstawie zdjęcia z boku</li>
-                        <li>1–2 kluczowe obserwacje</li>
-                        <li>jedno ćwiczenie dopasowane do Twojego problemu</li>
-                        <li>informacja, który pakiet będzie dla Ciebie optymalny</li>
-                    </ul>
-                    <a href="#contact" class="btn btn--ghost btn--full">Chcę darmową analizę</a>
-                </article>
-
-                <article class="pricing-card">
-                    <h3>BodyScan Pro</h3>
-                    <p class="pricing-card__price">49 zł</p>
-                    <p class="pricing-card__tag">Dokładna diagnoza</p>
-                    <ul>
-                        <li>szczegółowa analiza postawy (głowa, barki, kręgosłup, miednica, kolana, stopy)</li>
-                        <li>opis kompensacji i przewlekłych przeciążeń</li>
-                        <li>5 ćwiczeń z opisem i kolejnością wykonania</li>
-                        <li>plan „co robić przez pierwsze 7 dni”</li>
-                        <li>PDF do pobrania i zachowania</li>
-                    </ul>
-                    <p class="pricing-card__hint">Idealne, jeśli chcesz wiedzieć, skąd bierze się ból i co z nim robić.</p>
-                </article>
-
-                <article class="pricing-card pricing-card--highlight">
-                    <h3>BodyPlan 14</h3>
-                    <p class="pricing-card__price">119 zł</p>
-                    <p class="pricing-card__tag">Najczęściej wybierany</p>
-                    <ul>
-                        <li>analiza postawy + analizy wideo wzorca ruchu</li>
-                        <li>indywidualny plan ćwiczeń na 14 dni (rozpisany dzień po dniu)</li>
-                        <li>2 korekty w trakcie programu (feedback wideo)</li>
-                        <li>wskazówki ergonomiczne (praca, nauka, sen)</li>
-                        <li>PDF „10 nawyków, które niszczą Twoją postawę”</li>
-                    </ul>
-                    <p class="pricing-card__hint">
-                        Mniej niż jedna klasyczna wizyta, a realny proces przez dwa tygodnie.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="value" class="section section--emphasis">
-        <div class="container value__inner">
-            <div class="value__text">
-                <h2>Dlaczego BodyFix Lab?</h2>
-                <p class="value__intro">
-                    Standardowa wizyta u fizjoterapeuty kosztuje często <strong>około 200 zł</strong>. 
-                    Dostajesz 30–40 minut, kilka ćwiczeń, czasem masaż – i wracasz do domu.
-                </p>
+            
+            <div class="approach__content">
                 <p>
-                    W BodyFix Lab dostajesz coś zupełnie innego:
+                    Większość materiałów o zdrowiu skupia się na symptomach i gotowych recepturach. 
+                    My idziemy głębiej – wyjaśniamy <strong>mechanizmy</strong>, które stoją za problemami.
                 </p>
-                <ul class="value__list">
-                    <li>🔬 <strong>Dokładną analizę postawy i ruchu</strong> – biomechaniczne spojrzenie na Twoje ciało.</li>
-                    <li>🧠 <strong>Wyjaśnienie mechanizmu bólu</strong> – dlaczego naprawdę boli, a nie tylko „gdzie”.</li>
-                    <li>📝 <strong>Indywidualny plan na 14 lub 30 dni</strong> – dzień po dniu, krok po kroku.</li>
-                    <li>📲 <strong>Stały kontakt i korekty techniki</strong> – nie zostajesz sam z kartką ćwiczeń.</li>
+
+                <ul class="approach__list">
+                    <li>Opieramy się na neurofizjologii, biomechanice i nauce o bólu</li>
+                    <li>Nie obiecujemy cudu, obiecujemy lepszą regulację</li>
+                    <li>Nie dodajemy kolejnych zadań, zmniejszamy koszt istniejących</li>
+                    <li>Nie każemy robić więcej – uczymy robić świadomie</li>
                 </ul>
-                <p>
-                    A to wszystko <strong>taniej niż dwie tradycyjne wizyty</strong>. 
-                    Nasza filozofia jest prosta:
-                </p>
+
                 <blockquote class="quote">
-                    Ból nie powstaje w 40 minut i w 40 minut nie znika.  
-                    Dlatego płacisz nie za czas na kozetce, ale za <strong>proces</strong>, który prowadzi do zmiany.
+                    "Ból nie powstaje w 40 minut i w 40 minut nie znika. 
+                    Dlatego nie sprzedajemy szybkich rozwiązań – oferujemy proces zrozumienia i zmiany."
                 </blockquote>
+
                 <p>
-                    BodyFix Lab to fizjoterapia, która myśli jak laboratorium:
-                    <strong>analizuje, planuje, monitoruje i koryguje</strong> – aż poczujesz różnicę.
+                    Nasze materiały to nie kolejne "5 ćwiczeń na ból pleców". 
+                    To eseje edukacyjne, które <strong>zmieniają sposób myślenia</strong> o własnym ciele.
                 </p>
-                <p class="value__punch">
-                    Nie leczymy Cię przez 40 minut.  
-                    <strong>Leczymy Cię tak długo, aż Twoje ciało zacznie pracować lepiej.</strong>
+
+                <p>
+                    Po przeczytaniu nie będziesz miał gotowego planu do odhaczenia. 
+                    Będziesz wiedział, <strong>dlaczego</strong> coś się dzieje i <strong>co</strong> możesz z tym zrobić.
                 </p>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="section">
+    <section id="faq" class="section section--alt">
         <div class="container">
             <h2>Najczęściej zadawane pytania</h2>
             <div class="faq">
                 <article class="faq__item">
-                    <h3>Czy fizjoterapia online jest w ogóle skuteczna?</h3>
+                    <h3>Czy ebooki zawierają gotowe plany ćwiczeń?</h3>
                     <p>
-                        Tak, jeśli jest prowadzona w sposób medyczny i oparty na analizie, a nie gotowych szablonach. 
-                        W większości bólów przeciążeniowych kluczowe są: właściwa diagnostyka ruchu, odpowiednie ćwiczenia, 
-                        edukacja i zmiana nawyków. To wszystko można zrobić online, jeśli pacjent jest prowadzony krok po kroku.
-                    </p>
-                </article>
-                <article class="faq__item">
-                    <h3>Czy muszę instalować jakąś aplikację?</h3>
-                    <p>
-                        <strong>Nie.</strong> W BodyFix Lab podstawą jest zwykłe zdjęcie sylwetki z boku, zrobione telefonem. 
-                        Wysyłasz je mailem lub przez prosty formularz. 
-                        Dodatkowe nagrania ruchu możesz wysłać tak samo – bez logowania i bez specjalnych aplikacji.
-                    </p>
-                </article>
-                <article class="faq__item">
-                    <h3>Kiedy fizjoterapia online nie jest dla mnie?</h3>
-                    <p>
-                        Jeśli masz świeży uraz z dużym obrzękiem, nagły niedowład, zaburzenia czucia, problemy z kontrolą 
-                        zwieraczy, gorączkę z bólem kręgosłupa lub inne objawy alarmowe – <strong>najpierw skontaktuj się z lekarzem</strong>. 
-                        Jeśli w Twoim przypadku praca online nie będzie bezpieczna lub skuteczna, powiem Ci to wprost.
-                    </p>
-                </article>
-                <article class="faq__item">
-                    <h3>Po jakim czasie mogę odczuć poprawę?</h3>
-                    <p>
-                        To zależy od problemu, ale wielu pacjentów zgłasza pierwszą poprawę już po kilku dniach 
-                        systematycznego wykonywania ćwiczeń. Przy przewlekłych dolegliwościach zakładamy zwykle pracę 
-                        w perspektywie kilku tygodni, aby zmienić nie tylko objawy, ale i wzorce ruchowe.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section section--alt">
-        <div class="container contact">
-            <div class="contact__text">
-                <h2>Wyślij zdjęcie do darmowej analizy</h2>
-                <p class="section__lead">
-                    Zrób telefonem zdjęcie sylwetki z boku w naturalnej pozycji. 
-                    Wyślij je – odeślę Ci darmowy BodyScan Lite: wstępną analizę i jedno ćwiczenie dopasowane do Twojego problemu.
-                </p>
-                <p>
-                    Możesz wysłać zdjęcie:
-                </p>
-                <ul>
-                    <li>przez formularz obok,</li>
-                    <li>mailem (np. <strong>kontakt@bodyfixlab.pl</strong>),</li>
-                    <li>lub przez komunikator, z którego już korzystasz (np. WhatsApp, po ustaleniu w mailu).</li>
-                </ul>
-                <p>
-                    W odpowiedzi dostaniesz jasne informacje: co widać na zdjęciu, 
-                    co prawdopodobnie powoduje ból oraz jakie kolejne kroki będą dla Ciebie najlepsze.
-                </p>
-            </div>
-            <div class="contact__form">
-                <form id="contact-form">
-                    <label for="name">Imię</label>
-                    <input type="text" id="name" name="name" placeholder="Twoje imię" required>
-
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="twój@email.pl" required>
-
-                    <label for="problem">Co Cię boli / co chcesz poprawić?</label>
-                    <textarea id="problem" name="problem" rows="4" placeholder="Opisz krótko swój problem, np. &quot;ból lędźwi przy długim siedzeniu&quot;" required></textarea>
-
-                    <div style="background: #e6fffa; padding: 15px; border-radius: 8px; border-left: 4px solid #00b894; margin: 15px 0; font-size: 0.9em; color: #004d40; line-height: 1.5;">
-                        <strong>📸 Ważne o zdjęciu:</strong><br>
-                        Aby zachować pełną jakość potrzebną do diagnozy, zdjęcie sylwetki wyślij bezpośrednio na adres 
-                        <strong style="user-select: all;">johnn.gleba@gmail.com</strong> (lub na WhatsApp) zaraz po kliknięciu przycisku "Wyślij".
-                    </div>
-
-                    <button type="submit" class="btn btn--primary btn--full" id="submit_btn">Wyślij do darmowej analizy</button>
-                    <p class="contact__note">
-                        Kliknij, aby wysłać zgłoszenie. Potem prześlij fotkę mailem.
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="footer">
-    <div class="container footer__inner">
-        <p>© <span id="year"></span> BodyFix Lab – nowoczesna fizjoterapia online. Wszelkie prawa zastrzeżone.</p>
-        <p class="footer__small">
-            Informacje na stronie nie zastępują konsultacji lekarskiej. W razie wątpliwości skontaktuj się z lekarzem lub udaj się do szpitala.
-        </p>
-    </div>
-</footer>
-
-<script>
-    // Aktualny rok w stopce
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // --- Skrypt EmailJS ---
-    (function() {
-        emailjs.init('2QT5_OwVqPeR0sDLE'); // Twój Public Key
-
-        const contactForm = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit_btn');
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                submitBtn.innerText = 'Wysyłanie...';
-                submitBtn.disabled = true;
-
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const problem = document.getElementById('problem').value.trim();
-
-                if (!name || !email || !problem) {
-                    alert('Proszę wypełnić wszystkie wymagane pola (Imię, E-mail, Opis).');
-                    submitBtn.innerText = 'Wyślij do darmowej analizy';
-                    submitBtn.disabled = false;
-                    return;
-                }
-
-                // Parametry bez pliku (limit 50KB ominięty)
-                const templateParams = {
-                    from_name: name,
-                    from_email: email,
-                    problem_description: problem,
-                    file_name: "Zdjęcie zostanie dosłane mailem (w celu zachowania jakości)", 
-                    file_base64: null, 
-                    to_email: 'johnn.gleba@gmail.com'
-                };
-
-                // Wysyłanie
-                try {
-                    await emailjs.send('service_wmwcczo', 'template_littr5q', templateParams);
-                    
-                    // KOMUNIKAT DLA KLIENTA
-                    alert('✅ Zgłoszenie przyjęte!\n\nTERAZ WAŻNY KROK 2:\nWyślij swoje zdjęcie sylwetki na adres: johnn.gleba@gmail.com\n\nW tytule maila wpisz swoje imię, żebym wiedział, że to Ty!');
-                    
-                    contactForm.reset();
-                } catch (error) {
-                    console.error('EmailJS error:', error);
-                    alert('Wystąpił błąd przy wysyłaniu formularza. Spróbuj ponownie lub napisz bezpośrednio na maila.');
-                } finally {
-                    submitBtn.innerText = 'Wyślij do darmowej analizy';
-                    submitBtn.disabled = false;
-                }
-            });
-        }
-    })();
-
-    // --- Nawigacja (podświetlanie) ---
-    const navLinks = document.querySelectorAll('.nav a');
-    function updateActiveLink() {
-        const sections = document.querySelectorAll('[id]');
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= sectionTop - 150) {
-                current = section.getAttribute('id');
-            }
-        });
-        navLinks.forEach(link => {
-            link.style.borderBottomColor = 'transparent';
-            link.style.color = 'var(--muted)';
-            if (link.getAttribute('href') === '#' + current) {
-                link.style.borderBottomColor = 'var(--primary)';
-                link.style.color = 'var(--primary)';
-            }
-        });
-    }
-    navLinks.forEach(link => link.addEventListener('click', () => updateActiveLink()));
-    window.addEventListener('scroll', updateActiveLink);
-    window.addEventListener('load', updateActiveLink);
-</script>
-</body>
-</html>
-
-
+                        Nie – i to świadoma decyzja. Nasze materiały wyjaśniają <strong>mechanizmy</strong>, 
+                        dzię
