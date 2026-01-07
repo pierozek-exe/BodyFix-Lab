@@ -10,22 +10,16 @@
     <style>
 :root {
     --bg: #f8f9fa;
-    --bg-alt: #f0f2f5;
-    --bg-soft: #e8ecf1;
     --primary: #1db88f;
     --primary-soft: rgba(29, 184, 143, 0.12);
     --accent: #0d9d6b;
     --text: #1a1f36;
     --muted: #6b7280;
-    --danger: #ff6b81;
-    --card-bg: #ffffff;
     --border: #e5e7eb;
     --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.08);
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -36,11 +30,10 @@ html {
 }
 
 body {
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
     color: var(--text);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
 }
 
 .container {
@@ -101,14 +94,13 @@ body {
 .nav a {
     color: var(--muted);
     text-decoration: none;
-    transition: color 0.18s ease, transform 0.18s ease, border-bottom 0.18s ease;
+    transition: all 0.18s ease;
     padding-bottom: 0.3rem;
     border-bottom: 2px solid transparent;
 }
 
 .nav a:hover {
     color: var(--primary);
-    transform: translateY(-1px);
     border-bottom-color: var(--primary);
 }
 
@@ -131,8 +123,7 @@ body {
     font-weight: 500;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-    white-space: nowrap;
+    transition: all 0.18s ease;
 }
 
 .btn--primary {
@@ -158,7 +149,6 @@ body {
 
 .btn--full {
     width: 100%;
-    justify-content: center;
 }
 
 .hero {
@@ -189,7 +179,6 @@ body {
 .hero__bullets {
     list-style: none;
     margin-bottom: 2rem;
-    color: var(--muted);
     text-align: left;
     max-width: 600px;
     margin-left: auto;
@@ -198,6 +187,7 @@ body {
 
 .hero__bullets li {
     margin-bottom: 0.5rem;
+    color: var(--muted);
 }
 
 .hero__actions {
@@ -205,7 +195,6 @@ body {
     flex-wrap: wrap;
     gap: 0.75rem;
     justify-content: center;
-    margin-bottom: 1rem;
 }
 
 .section {
@@ -217,7 +206,6 @@ body {
 }
 
 .section--emphasis {
-    padding: 3.5rem 0;
     background: linear-gradient(135deg, #e8ecf1, #dfe4ec);
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -249,7 +237,7 @@ body {
     padding: 1.8rem;
     border: 1px solid var(--border);
     box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .ebook-card:hover {
@@ -294,13 +282,13 @@ body {
     list-style: none;
     margin-bottom: 1.5rem;
     font-size: 0.85rem;
-    color: var(--muted);
 }
 
 .ebook-card__features li {
     padding-left: 1.2rem;
     position: relative;
     margin-bottom: 0.4rem;
+    color: var(--muted);
 }
 
 .ebook-card__features li::before {
@@ -346,12 +334,6 @@ body {
 .ebook-card--placeholder h3 {
     color: var(--muted);
     font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.ebook-card--placeholder p {
-    color: var(--muted);
-    font-size: 0.9rem;
 }
 
 .videos-grid {
@@ -361,56 +343,10 @@ body {
     margin-top: 2rem;
 }
 
-.video-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 1.2rem;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
-}
-
-.video-card__placeholder {
-    background: linear-gradient(135deg, #e8ecf1, #dfe4ec);
-    aspect-ratio: 16 / 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-size: 3rem;
-}
-
-.video-card__content {
-    padding: 1.3rem;
-}
-
-.video-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-}
-
-.video-card__description {
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-}
-
-.video-card__meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-}
-
 .video-card--placeholder {
     background: rgba(248, 249, 250, 0.6);
     border: 2px dashed var(--border);
+    border-radius: 1.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -433,29 +369,7 @@ body {
     border: 1px solid rgba(29, 184, 143, 0.3);
     background: rgba(29, 184, 143, 0.06);
     font-size: 0.95rem;
-    color: var(--text);
     text-align: center;
-}
-
-.banner strong {
-    color: var(--primary);
-}
-
-.approach {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.approach h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.approach__intro {
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
 }
 
 .approach__content {
@@ -463,6 +377,8 @@ body {
     border-radius: 1.2rem;
     padding: 2rem;
     border: 1px solid var(--border);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .approach__content p {
@@ -487,7 +403,6 @@ body {
     position: absolute;
     left: 0;
     color: var(--primary);
-    font-weight: 600;
 }
 
 .quote {
@@ -496,14 +411,11 @@ body {
     background: rgba(29, 184, 143, 0.06);
     border-left: 3px solid var(--primary);
     border-radius: 0.5rem;
-    font-size: 1rem;
-    color: var(--text);
     font-style: italic;
 }
 
 .faq {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
     margin-top: 2rem;
 }
@@ -511,7 +423,7 @@ body {
 .faq__item {
     background: rgba(248, 249, 250, 0.85);
     border-radius: 0.9rem;
-    padding: 1.2rem 1.3rem;
+    padding: 1.2rem;
     border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -529,7 +441,6 @@ body {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     gap: 2rem;
-    align-items: flex-start;
 }
 
 .contact__text p {
@@ -563,37 +474,20 @@ body {
     border-radius: 0.6rem;
     border: 1px solid rgba(0, 0, 0, 0.12);
     padding: 0.65rem 0.75rem;
-    color: var(--text);
     font-size: 0.9rem;
-    transition: border-color 0.18s ease, background 0.18s ease;
-}
-
-.contact__form input::placeholder,
-.contact__form textarea::placeholder {
-    color: #a0a8b8;
+    transition: all 0.18s ease;
 }
 
 .contact__form input:focus,
 .contact__form textarea:focus {
     outline: none;
     border-color: rgba(29, 184, 143, 0.6);
-    background: #ffffff;
-}
-
-.contact__note {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 0.4rem;
-    text-align: center;
 }
 
 .footer {
     padding: 1.5rem 0 2rem;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     background: rgba(248, 249, 250, 0.8);
-}
-
-.footer__inner {
     text-align: center;
 }
 
@@ -602,33 +496,10 @@ body {
     color: var(--muted);
 }
 
-.footer__small {
-    margin-top: 0.5rem;
-}
-
 @media (max-width: 880px) {
-    .nav {
-        display: none;
-    }
-
-    .contact {
-        grid-template-columns: 1fr;
-    }
-
-    .ebooks-grid,
-    .videos-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .section {
-        padding: 3rem 0;
-    }
-
-    .hero {
-        padding-top: 3.5rem;
-    }
+    .nav { display: none; }
+    .contact { grid-template-columns: 1fr; }
+    .ebooks-grid, .videos-grid { grid-template-columns: 1fr; }
 }
     </style>
 </head>
@@ -644,7 +515,6 @@ body {
             <a href="#ebooks">Ebooki</a>
             <a href="#videos">Filmiki</a>
             <a href="#approach">Podejście</a>
-            <a href="#faq">FAQ</a>
             <a href="#contact" class="nav__cta">Kontakt</a>
         </nav>
     </div>
@@ -682,22 +552,21 @@ body {
             </p>
 
             <div class="ebooks-grid">
-                <!-- Ebook 1: Lędźwie -->
                 <article class="ebook-card">
-                    <span class="ebook-card__badge">Nowy materiał</span>
-                    <h3>Wzmocnienie dolnych pleców przez regulację, nie przez wysiłek</h3>
+                    <span class="ebook-card__badge">Bestseller</span>
+                    <h3>Wzmocnienie dolnych pleców przez regulację</h3>
                     <p class="ebook-card__subtitle">
                         "Czasem lędźwie krzyczą z bólu nie przez słabe mięśnie, ale przez chaos w regulacji"
                     </p>
                     <p class="ebook-card__description">
-                        Ten materiał wyjaśnia, dlaczego większość problemów z dolnym odcinkiem kręgosłupa nie wynika ze słabości, 
-                        lecz z utraty zdolności regulacji napięcia. Bez kolejnego programu ćwiczeń – za to z nowym sposobem myślenia.
+                        Materiał wyjaśnia, dlaczego problemy z dolnym odcinkiem kręgosłupa nie wynikają ze słabości, 
+                        lecz z utraty zdolności regulacji napięcia. Bez programu ćwiczeń – z nowym sposobem myślenia.
                     </p>
                     <ul class="ebook-card__features">
                         <li>Jak naprawdę pracują mięśnie stabilizujące</li>
                         <li>Dlaczego bezruch bywa gorszy niż "zła pozycja"</li>
-                        <li>Jak codzienne czynności mogą być bodźcem wzmacniającym</li>
-                        <li>Czym jest regulacja napięcia i dlaczego jest kluczowa</li>
+                        <li>Jak codzienne czynności mogą wzmacniać</li>
+                        <li>Czym jest regulacja napięcia</li>
                     </ul>
                     <div class="ebook-card__footer">
                         <span class="ebook-card__price">5 zł <span>PDF</span></span>
@@ -705,22 +574,21 @@ body {
                     </div>
                 </article>
 
-                <!-- Ebook 2: Zmęczenie -->
                 <article class="ebook-card">
-                    <span class="ebook-card__badge">Nowy materiał</span>
-                    <h3>Odzyskać energię przez zrozumienie zmęczenia regulacyjnego</h3>
+                    <span class="ebook-card__badge">Fundamenty</span>
+                    <h3>Odzyskać energię przez zrozumienie zmęczenia</h3>
                     <p class="ebook-card__subtitle">
-                        "Zmęczenie rzadko wynika z braku snu. Częściej wynika z tego, że organizm nie wychodzi z trybu czuwania"
+                        "Zmęczenie rzadko wynika z braku snu. Częściej z tego, że organizm nie wychodzi z trybu czuwania"
                     </p>
                     <p class="ebook-card__description">
-                        Materiał pokazuje, jak odzyskać energię bez suplementów i motywowania się – 
+                        Materiał pokazuje, jak odzyskać energię bez suplementów – 
                         poprzez zrozumienie, jak układ nerwowy zarządza zasobami w ciągu dnia.
                     </p>
                     <ul class="ebook-card__features">
                         <li>Czym jest zmęczenie regulacyjne</li>
                         <li>Jak układ nerwowy zużywa energię na czuwanie</li>
                         <li>Dlaczego ciągła uwaga jest droższa niż ruch</li>
-                        <li>Jak obniżyć koszt funkcjonowania bez zmiany życia</li>
+                        <li>Jak obniżyć koszt funkcjonowania</li>
                     </ul>
                     <div class="ebook-card__footer">
                         <span class="ebook-card__price">5 zł <span>PDF</span></span>
@@ -728,10 +596,88 @@ body {
                     </div>
                 </article>
 
-                <!-- Placeholder dla kolejnych ebooków -->
-                <article class="ebook-card ebook-card--placeholder">
-                    <h3>Miejsce na kolejny ebook</h3>
-                    <p>Wkrótce dostępne nowe materiały edukacyjne</p>
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Nowość</span>
+                    <h3>Nauka o Śnie i Regeneracji</h3>
+                    <p class="ebook-card__subtitle">
+                        "Sen to złożony proces biologiczny, a nie tylko bierny odpoczynek"
+                    </p>
+                    <p class="ebook-card__description">
+                        Analiza neuroanatomii snu. Dowiedz się, jak podwzgórze i pień mózgu sterują fazami NREM/REM i dlaczego fragmentacja snu jest gorsza niż jego krótki czas trwania.
+                    </p>
+                    <ul class="ebook-card__features">
+                        <li>Architektura snu: Fazy NREM vs REM</li>
+                        <li>Konsolidacja pamięci i regeneracja tkanek</li>
+                        <li>Rola neuroprzekaźnika GABA w hamowaniu aktywności</li>
+                        <li>Realne normy i higiena rytmu dobowego</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
+                </article>
+
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Ważne</span>
+                    <h3>Ciche Przeciążenie Sensoryczne</h3>
+                    <p class="ebook-card__subtitle">
+                        "Gdy mechanizmy adaptacyjne kory mózgowej zawodzą pod wpływem nadmiaru bodźców"
+                    </p>
+                    <p class="ebook-card__description">
+                        Przewodnik po dysregulacji układu nerwowego. Wyjaśniamy, jak nadmierna stymulacja prowadzi do bólu funkcjonalnego, problemów z koncentracją i "zmęczenia bez przyczyny".
+                    </p>
+                    <ul class="ebook-card__features">
+                        <li>Neuroanatomia integracji sensorycznej</li>
+                        <li>Habituacja vs Sensytyzacja: jak mózg się adaptuje</li>
+                        <li>Rola układu siatkowatego (ARAS) w pobudzeniu</li>
+                        <li>Strategie redukcji bodźców i wyciszania</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
+                </article>
+
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Praktyczne</span>
+                    <h3>Bruksizm i Zaciskanie Szczęki</h3>
+                    <p class="ebook-card__subtitle">
+                        "Napięcie żuchwy to często barometr stanu emocjonalnego i jakości snu"
+                    </p>
+                    <p class="ebook-card__description">
+                        Kompleksowe omówienie mechaniki stawu skroniowo-żuchwowego. Odróżnij bruksizm dzienny (nawykowy) od nocnego (związanego z mikroprzebudzeniami).
+                    </p>
+                    <ul class="ebook-card__features">
+                        <li>Anatomia mięśni żucia: Żwacz i Skroniowy</li>
+                        <li>Wpływ stresu i farmakologii (SSRI) na napięcie</li>
+                        <li>Szyny relaksacyjne a terapia manualna</li>
+                        <li>Techniki autorelaksacji i biofeedback</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
+                </article>
+
+                <article class="ebook-card">
+                    <span class="ebook-card__badge">Przewodnik</span>
+                    <h3>Rwa Kulszowa: Kompendium</h3>
+                    <p class="ebook-card__subtitle">
+                        "Od anatomii nerwu kulszowego do bezpiecznego ruchu bez lęku"
+                    </p>
+                    <p class="ebook-card__description">
+                        Zrozum mechanikę bólu promieniującego. Czy to dyskopatia, czy stenoza? Naucz się ergonomii i bezpiecznych wzorców ruchowych, by uniknąć nawrotów.
+                    </p>
+                    <ul class="ebook-card__features">
+                        <li>Anatomia: Przebieg nerwu od L4-S3 do stopy</li>
+                        <li>Przyczyny: Dyskopatia, stenoza, osteofity</li>
+                        <li>Ergonomia siedzenia, spania i podnoszenia</li>
+                        <li>Bezpieczne ćwiczenia odciążające kręgosłup</li>
+                    </ul>
+                    <div class="ebook-card__footer">
+                        <span class="ebook-card__price">5 zł <span>PDF</span></span>
+                        <a href="#contact" class="btn btn--primary">Kup teraz</a>
+                    </div>
                 </article>
             </div>
 
@@ -750,36 +696,28 @@ body {
             </p>
 
             <div class="videos-grid">
-                <!-- Placeholder 1 -->
-                <article class="video-card video-card--placeholder">
-                    <h3>Miejsce na filmik</h3>
+                <article class="video-card--placeholder">
+                    <h3>📹 Miejsce na filmik</h3>
                     <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
 
-                <!-- Placeholder 2 -->
-                <article class="video-card video-card--placeholder">
-                    <h3>Miejsce na filmik</h3>
+                <article class="video-card--placeholder">
+                    <h3>📹 Miejsce na filmik</h3>
                     <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
 
-                <!-- Placeholder 3 -->
-                <article class="video-card video-card--placeholder">
-                    <h3>Miejsce na filmik</h3>
+                <article class="video-card--placeholder">
+                    <h3>📹 Miejsce na filmik</h3>
                     <p>Tutaj możesz osadzić filmik z YouTube lub Vimeo</p>
                 </article>
-            </div>
-
-            <div class="banner">
-                💡 <strong>Wskazówka:</strong> Aby dodać filmik z YouTube, zamień placeholder na: 
-                <code>&lt;iframe src="https://www.youtube.com/embed/KOD_FILMU"&gt;&lt;/iframe&gt;</code>
             </div>
         </div>
     </section>
 
     <section id="approach" class="section section--emphasis">
-        <div class="container approach">
+        <div class="container">
             <h2>Nasze podejście</h2>
-            <p class="approach__intro">
+            <p class="section__lead">
                 BodyFix Lab nie obiecuje szybkich rozwiązań. Zamiast tego oferuje coś cenniejszego: zrozumienie.
             </p>
             
@@ -805,21 +743,137 @@ body {
                     Nasze materiały to nie kolejne "5 ćwiczeń na ból pleców". 
                     To eseje edukacyjne, które <strong>zmieniają sposób myślenia</strong> o własnym ciele.
                 </p>
-
-                <p>
-                    Po przeczytaniu nie będziesz miał gotowego planu do odhaczenia. 
-                    Będziesz wiedział, <strong>dlaczego</strong> coś się dzieje i <strong>co</strong> możesz z tym zrobić.
-                </p>
             </div>
         </div>
     </section>
 
     <section id="faq" class="section section--alt">
         <div class="container">
-            <h2>Najczęściej zadawane pytania</h2>
+            <h2>FAQ</h2>
             <div class="faq">
                 <article class="faq__item">
                     <h3>Czy ebooki zawierają gotowe plany ćwiczeń?</h3>
                     <p>
-                        Nie – i to świadoma decyzja. Nasze materiały wyjaśniają <strong>mechanizmy</strong>, 
-                        dzię
+                        Nie – to świadoma decyzja. Materiały wyjaśniają mechanizmy, dzięki czemu rozumiesz, 
+                        co robić w swojej sytuacji. To lepsze niż gotowy zestaw, który może nie pasować.
+                    </p>
+                </article>
+                <article class="faq__item">
+                    <h3>Dla kogo są te materiały?</h3>
+                    <p>
+                        Dla osób, które chcą zrozumieć swoje ciało, a nie tylko odhaczać ćwiczenia. 
+                        Dla tych, którzy mają dość sprzecznych porad i szukają naukowego podejścia.
+                    </p>
+                </article>
+                <article class="faq__item">
+                    <h3>Jak wygląda zakup?</h3>
+                    <p>
+                        Kliknij "Kup teraz", wypełnij formularz kontaktowy. Wyślę Ci dane do przelewu, 
+                        a po płatności otrzymasz ebooka w PDF na maila.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container contact">
+            <div class="contact__text">
+                <h2>Kontakt</h2>
+                <p>
+                    Masz pytania o materiały? Chcesz kupić ebooka? 
+                    Napisz do mnie przez formularz lub bezpośrednio na maila.
+                </p>
+                <p style="margin-top: 1rem;">
+                    📧 <strong>johnn.gleba@gmail.com</strong>
+                </p>
+            </div>
+            <div class="contact__form">
+                <form id="contact-form">
+                    <label for="name">Imię</label>
+                    <input type="text" id="name" name="name" placeholder="Twoje imię" required>
+
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="twój@email.pl" required>
+
+                    <label for="message">Wiadomość</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Napisz swoją wiadomość..." required></textarea>
+
+                    <button type="submit" class="btn btn--primary btn--full" id="submit_btn">Wyślij wiadomość</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© <span id="year"></span> BodyFix Lab – materiały edukacyjne o zdrowiu. Wszelkie prawa zastrzeżone.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">
+            Informacje nie zastępują konsultacji lekarskiej. W razie wątpliwości skontaktuj się z lekarzem.
+        </p>
+    </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function() {
+    emailjs.init('2QT5_OwVqPeR0sDLE');
+    
+    const form = document.getElementById('contact-form');
+    const btn = document.getElementById('submit_btn');
+    
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            btn.innerText = 'Wysyłanie...';
+            btn.disabled = true;
+            
+            const params = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('message').value,
+                to_email: 'johnn.gleba@gmail.com'
+            };
+            
+            try {
+                await emailjs.send('service_wmwcczo', 'template_littr5q', params);
+                alert('✅ Wiadomość wysłana! Odezwę się wkrótce.');
+                form.reset();
+            } catch (error) {
+                console.error(error);
+                alert('Wystąpił błąd. Spróbuj ponownie lub napisz na: johnn.gleba@gmail.com');
+            } finally {
+                btn.innerText = 'Wyślij wiadomość';
+                btn.disabled = false;
+            }
+        });
+    }
+})();
+
+const navLinks = document.querySelectorAll('.nav a');
+function updateActiveLink() {
+    const sections = document.querySelectorAll('[id]');
+    let current = '';
+    sections.forEach(section => {
+        const top = section.offsetTop;
+        if (window.scrollY >= top - 150) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.style.borderBottomColor = 'transparent';
+        link.style.color = 'var(--muted)';
+        if (link.getAttribute('href') === '#' + current) {
+            link.style.borderBottomColor = 'var(--primary)';
+            link.style.color = 'var(--primary)';
+        }
+    });
+}
+window.addEventListener('scroll', updateActiveLink);
+window.addEventListener('load', updateActiveLink);
+</script>
+</body>
+</html>
